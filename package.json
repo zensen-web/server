@@ -1,0 +1,21 @@
+{
+  "name": "zensen-generator",
+  "version": "0.0.1",
+  "description": "Generates a zensen app",
+  "main": "index.js",
+  "scripts": {
+    "gen": "plop",
+    "lint": "eslint core",
+    "lint:fix": "eslint --fix core"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "plop": "^2.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
