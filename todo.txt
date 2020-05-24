@@ -1,0 +1,27 @@
+Overall:
+Allow generator to customize port
+
+Backend:
+Setup babel
+Allow generator to setup sequelize
+Add logging middleware
+Add auth middleware for jwt with permissions
+Add subgenerator for controller
+Add subgenerator for crud controllers for model
+Add subgenerator for model
+Add subgenertor for dto
+Add sub generator for model test
+Add sub generator for controller test
+Add sub generator for dto test
+
+Frontend:
+Allow generator to setup front-end
+Add sub generator for api client
+Add sub generator for api client test
+Add sub generator for service object
+Add sub generator for service object test
+Add sub generator for component
+Add sub generator for component test
+Add sub generator for model form component
+Add sub generator for model display component
+Add sub generator for model crud component

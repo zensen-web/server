@@ -1,11 +1,13 @@
-const setupServer = require('@zensen/server-core');
+import setupServer from '@zensen/server-core';
 
-module.exports = () => setupServer({
+const startServer = () => setupServer({
   name: '{{name}}',
   port: 3000,
   root: __dirname,
 });
 
+export default startServer;
+
 if (require.main === module) {
-  module.exports();
+  startServer();
 }

@@ -1,4 +1,4 @@
-const startApp = require('../index.js');
+import startApp from '../index';
 
 before(async () => {
   global.app = await startApp();

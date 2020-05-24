@@ -6,6 +6,7 @@
   "scripts": {
     "gen": "plop",
     "lint": "eslint core",
+    "test": "NODE_ENV=test mocha --timeout 300000 --exit test test/**/*.test.js",
     "lint:fix": "eslint --fix core"
   },
   "author": "",
@@ -14,8 +15,10 @@
     "plop": "^2.6.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-import": "^2.20.2"
+    "eslint-plugin-import": "^2.20.2",
+    "mocha": "^7.1.2"
   }
 }

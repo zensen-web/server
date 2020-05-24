@@ -10,8 +10,8 @@ module.exports = (plop) => {
       type: 'addMany',
       destination: './{{name}}',
       base: 'template',
-      templateFiles: 'template/**/*.*',
-      globOptions: { ignore: 'template/node_modules/**/*.*' },
+      templateFiles: 'template/**/*',
+      globOptions: { dot: true, ignore: 'template/node_modules/**/*' },
     }],
   });
 };
