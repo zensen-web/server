@@ -1,77 +1,62 @@
-const { spawn, execSync } = require('child_process');
+const { execSync } = require('child_process');
 
 describe('app', () => {
   before(() => {
+    execSync('rm -rf test-app');
     execSync('npm run gen test-app');
-    execSync('npm link ../core', { cwd: `${process.cwd()}/test-app` });
-    execSync('npm i', { cwd: `${process.cwd()}/test-app` });
-    execSync('npm link ../core', { cwd: `${process.cwd()}/test-app` });
+    execApp('npm i');
   });
 
   after(() => {
-    execSync('rm -rf test-app');
+    // execSync('rm -rf test-app');
   });
 
   it('generated app passes test', () => {
-    execSync('npm run test', { cwd: `${process.cwd()}/test-app` });
+    execApp('npm run test');
   });
 
   it('generated app passes lint', () => {
-    execSync('npm run lint', { cwd: `${process.cwd()}/test-app` });
+    execApp('npm run lint');
   });
 
   context('building with babel', () => {
     let serverProcess;
-    let output;
 
     before(() => {
-      output = '';
-      execSync('npm run build', { cwd: `${process.cwd()}/test-app` });
-      serverProcess = spawn('npm', ['run', 'start:prod'], { cwd: `${process.cwd()}/test-app` });
+      execApp('npm run build');
     });
 
     after(() => serverProcess.kill());
 
-    it('runs start prod succesfully', () => new Promise((res) => {
-      let done = false;
-      serverProcess.stdout.on('data', (data) => {
-        console.log(data.toString());
-        output += data.toString();
-        if (!done && output.includes('listening on port')) {
-          done = true;
-          res();
-        }
-      });
-    }));
+    it('runs start prod succesfully', async () => {
+      serverProcess = await spawnApp('npm', ['run', 'start:prod'], 'listening on port');
+    });
   });
 
-  context.skip('building docker image', () => {
-    let output = '';
+  context('building docker image', () => {
     let dockerProcess;
 
-    before(() => {
-      execSync('docker build -t test-image .', { cwd: `${process.cwd()}/test-app` });
-      dockerProcess = spawn('docker run --rm test-image', { cwd: `${process.cwd()}/test-app` });
-      return new Promise((res) => {
-        let done = false;
-        dockerProcess.stdout.on('data', (data) => {
-          console.log(data.toString());
-          output += data.toString();
-          if (!done && output.includes('listening on port')) {
-            done = true;
-            res();
-          }
-        });
-      });
+    before(async () => {
+      execApp('docker-compose build');
+      dockerProcess = await spawnApp('docker-compose', ['up']);
+      // await new Promise((res) => setTimeout(res, 10000));
     });
 
     after(() => {
       dockerProcess.kill();
+      execApp('docker-compose down');
     });
 
-    it('exposes healthcheck', () => {
-      const response = execSync('curl localhost:3000/healthcheck', { cwd: `${process.cwd()}/test-app` });
-      expect(response).to.equal('');
+    it('exposes healthcheck on dev server', () => {
+      expect(execApp('curl localhost:3000/healthcheck')).to.include('Healthy');
+    });
+
+    it('runs tests on server', () => {
+      spawnApp('tail', ['-f', 'test.log'], 'listening on port');
+    });
+
+    it('exposes healthcheck on prod server', () => {
+      expect(execApp('curl localhost:3002/healthcheck')).to.include('Healthy');
     });
   });
 });

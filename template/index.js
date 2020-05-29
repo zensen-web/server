@@ -1,10 +1,7 @@
-import setupServer from '@zensen/server-core';
+import { setupServer } from './src/core';
+import serverConfig from './config/server';
 
-const startServer = () => setupServer({
-  name: '{{name}}',
-  port: 3000,
-  root: __dirname,
-});
+const startServer = () => setupServer(serverConfig);
 
 export default startServer;
 

@@ -1,7 +1,9 @@
+import { getZensenServer } from '../src/core';
 import startApp from '../index';
 
 before(async () => {
-  global.app = await startApp();
+  await startApp();
+  global.app = getZensenServer().server;
 });
 
 after(() => {

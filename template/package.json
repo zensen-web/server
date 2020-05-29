@@ -6,15 +6,22 @@
   "scripts": {
     "lint": "eslint .",
     "start": "node --require @babel/register index.js",
+    "watch": "nodemon --require @babel/register index.js",
     "start:prod": "node dist/index.js",
     "test": "NODE_ENV=test mocha --require @babel/register test test/**/*.test.js",
-    "build": "rm -rf dist && babel src -d dist/src && babel index.js -d dist"
+    "test:watch": "nodemon --exec npm run test",
+    "build": "rm -rf dist && babel config -d dist/config --copy-files && babel src -d dist/src --copy-files && babel index.js -d dist"
+  },
+  "nodemonConfig": {
+    "ignore": ["*.log"]
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@zensen/server-core": "^0.0.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.10",
+    "sequelize-cli": "^5.5.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -25,6 +32,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "mocha": "^7.1.2",
+    "nodemon": "^2.0.4",
     "supertest": "^4.0.2"
   }
 }

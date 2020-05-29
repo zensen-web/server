@@ -1,4 +1,5 @@
 {
+    "ignorePatterns": ["dist/**/*.js"],
     "env": {
         "commonjs": true,
         "es6": true,

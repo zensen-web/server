@@ -1,6 +1,6 @@
-const express = require('express');
-const path = require('path');
-const { readdirSync, existsSync } = require('fs');
+import express from 'express';
+import path from 'path';
+import { readdirSync, existsSync } from 'fs';
 
 const buildController = (config) => [(req, res) => {
   const result = config.handler();
@@ -34,4 +34,4 @@ const processDirectory = async (directory) => {
   return router;
 };
 
-module.exports = { processDirectory };
+export default processDirectory;
