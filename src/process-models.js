@@ -23,10 +23,10 @@ const processDir = (directory, sequelize) => {
 };
 
 const createSequelize = async (directory, options) => {
+  if (!options) return null;
   const sequelize = new Sequelize(options);
 
   processDir(directory, sequelize);
-
 
   return sequelize;
 };

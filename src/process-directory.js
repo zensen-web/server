@@ -3,14 +3,14 @@ import path from 'path';
 import { readdirSync, existsSync } from 'fs';
 
 const buildController = (config) => [(req, res) => {
-  const result = config.handler();
+  const result = config.handler(req, res);
   if (!result) return;
 
-  res.json(config.formatter ? config.formatter(result) : result);
+  res.json(result);
 }];
 
 const processDirectory = async (directory) => {
-  const router = new express.Router();
+  const router = new express.Router({ mergeParams: true });
 
   if (existsSync(directory)) {
     const children = readdirSync(directory, { withFileTypes: true });
