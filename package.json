@@ -32,7 +32,7 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mocha": "^7.1.2",
     "nodemon": "^2.0.4",
     "sequelize": "^5.21.10",
@@ -40,7 +40,7 @@
     "supertest": "^4.0.2"
   },
   "peerDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "sequelize": "^5.21.10"
   }
 }
